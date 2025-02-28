@@ -1,0 +1,12 @@
+<% content_for :title, "Editing person status" %>
+
+<h1>Editing person status</h1>
+
+<%= render "form", person_status: @person_status %>
+
+<br>
+
+<div>
+  <%= link_to "Show this person status", @person_status %> |
+  <%= link_to "Back to person statuses", person_statuses_path %>
+</div>

@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  resources :deans
+  resources :teachers
+  resources :students
+  devise_for :people
+  resources :rooms
+  resources :grades
+  resources :examinations
+  resources :subjects
+  resources :courses
+  resources :classrooms
+  resources :employees
+  resources :people
+  resources :person_statuses
+  resources :addresses
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
