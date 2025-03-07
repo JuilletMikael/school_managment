@@ -8,6 +8,7 @@ class PeopleController < ApplicationController
 
   # GET /people/1 or /people/1.json
   def show
+    @person = current_person
   end
 
   # GET /people/new
