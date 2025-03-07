@@ -5,9 +5,8 @@
   <p>Vous êtes connecté en tant que : <%= @person.roles.map(&:name).join(", ") %></p>
 
   <%= link_to "Mon Profil", profile_path, class: "btn btn-primary" %>
-  <%= link_to "Déconnexion", destroy_person_session_path, method: :delete, class: "btn btn-danger" %>
+  <%= button_to "Déconnexion", destroy_person_session_path, method: :delete, class: "btn btn-danger" %>
 <% else %>
   <p>Bienvenue ! Veuillez vous connecter ou vous inscrire.</p>
   <%= link_to "Connexion", new_person_session_path, class: "btn btn-success" %>
-  <%= link_to "Inscription", new_person_registration_path, class: "btn btn-info" %>
 <% end %>

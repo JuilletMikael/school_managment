@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   get "home/index"
+
+  devise_for :people
+
   resources :deans
   resources :teachers
   resources :students
-  devise_for :people
   resources :rooms
   resources :grades
   resources :examinations
