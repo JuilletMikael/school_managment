@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  uid: MyString
+  name: MyString
+  room: one
+  master: one
+
+two:
+  uid: MyString
+  name: MyString
+  room: two
+  master: two

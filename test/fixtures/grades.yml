@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  value: 9.99
+  effective_date: 2025-02-27 14:10:17
+  examination: one
+  student: one
+
+two:
+  value: 9.99
+  effective_date: 2025-02-27 14:10:17
+  examination: two
+  student: two

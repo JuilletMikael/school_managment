@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @person_status %>
+
+<div>
+  <%= link_to "Edit this person status", edit_person_status_path(@person_status) %> |
+  <%= link_to "Back to person statuses", person_statuses_path %>
+
+  <%= button_to "Destroy this person status", @person_status, method: :delete %>
+</div>
