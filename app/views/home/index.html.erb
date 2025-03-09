@@ -2,7 +2,10 @@
   <div class="relative isolate px-6 pt-14 lg:px-8">
     <div class="mx-auto max-w-2xl py-8 sm:py-12 lg:py-16">
       <div class="text-center">
-        Hello
+        <% if person_signed_in? %>
+          <p>Bonjour, <%= @person.username %> !</p>
+          <p>Vous êtes connecté en tant que : <%= @person.roles.map(&:name).join(", ") %></p>
+        <% end %>
       </div>
     </div>
   </div>
