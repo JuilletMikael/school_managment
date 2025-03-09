@@ -1,14 +1,10 @@
-<h1>Bienvenue sur School Management</h1>
-
-<% if person_signed_in? %>
-  <p>Bonjour, <%= @person.username %> !</p>
-  <p>Vous êtes connecté en tant que : <%= @person.roles.map(&:name).join(", ") %></p>
-
-  <%= link_to "Mon Profil", profile_path, class: "btn btn-primary" %>
-  <%= button_to "Déconnexion", destroy_person_session_path, method: :delete, class: "btn btn-danger" %>
-<% else %>
-  <p>Bienvenue ! Veuillez vous connecter ou vous inscrire.</p>
-  <%= link_to "Connexion", new_person_session_path, class: "btn btn-success" %>
-<% end %>
-<h1 class="text-3xl font-bold text-blue-600">Hello Tailwind avec Rails !</h1>
+<div class="bg-white">
+  <div class="relative isolate px-6 pt-14 lg:px-8">
+    <div class="mx-auto max-w-2xl py-8 sm:py-12 lg:py-16">
+      <div class="text-center">
+        Hello
+      </div>
+    </div>
+  </div>
+</div>
 

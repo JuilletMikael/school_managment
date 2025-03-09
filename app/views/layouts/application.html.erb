@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full">
   <head>
     <title><%= content_for(:title) || "School Management" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,13 +18,53 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+  <body class="h-full">
+    <div class="min-h-full">
+      <!-- Navigation -->
+      <nav class="bg-gray-100">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex h-16 items-center justify-between">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <h1 class="text-xl font-bold">School Management</h1>
+              </div>
+              <div class="hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-4">
+                  <%= link_to "Dashboard", "#", class: "hover:bg-green-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
+                  <%= link_to "Students", "#", class: "hover:bg-green-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
+                  <%= link_to "Teachers", "#", class: "hover:bg-green-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
+                  <%= link_to "Courses", "#", class: "hover:bg-green-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
+                </div>
+              </div>
+            </div>
+            <div class="hidden md:block">
+              <div class="ml-4 flex items-center md:ml-6 space-x-4">
+                <% if person_signed_in? %>
+                  <span class="text-green-100 text-sm"><%= current_person.email %></span>
+                  <%= button_to "Sign out", destroy_person_session_path, method: :delete, class: "rounded-md bg-green-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600" %>
+                <% else %>
+                  <%= link_to "Sign in", new_person_session_path, class: "btn text-white rounded-md bg-green-700 px-3 py-2 text-sm font-semibold shadow-sm hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="">
+        <div class="px-4 py-6 sm:px-0">
+          <div class="p-6">
+            <%= yield %>
+          </div>
+        </div>
+      </main>
+
+    </div>
   </body>
 </html>

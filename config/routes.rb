@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
+  root "home#index"
   get "home/index"
 
   devise_for :people
+
+  # Profile route
+  get 'profile', to: 'profiles#show', as: :profile
 
   resources :deans
   resources :teachers
@@ -27,7 +31,4 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "home#index"
-
-  get 'profile', to: 'persons#show'
 end
