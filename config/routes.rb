@@ -9,7 +9,11 @@ Rails.application.routes.draw do
 
   resources :deans
   resources :teachers
-  resources :students
+  resources :students do
+    member do
+      get 'grades'
+    end
+  end
   resources :rooms
   resources :grades
   resources :examinations

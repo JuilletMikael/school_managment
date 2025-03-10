@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: %i[ show edit update destroy ]
+  before_action :set_student, only: %i[ show edit update destroy grades ]
 
   # GET /students or /students.json
   def index
@@ -8,6 +8,20 @@ class StudentsController < ApplicationController
 
   # GET /students/1 or /students/1.json
   def show
+  end
+
+  # GET /students/1/grades
+  def grades
+    @student = Student.find(params[:id])
+    
+    # Get all grades for the student with their associated examinations and courses
+    @grades = @student.grades.includes(examination: :course)
+    
+    # Group grades by year (based on effective_date)
+    @grades_by_year = @grades.group_by { |grade| grade.effective_date.year }
+    
+    # Sort years in descending order
+    @years = @grades_by_year.keys.sort.reverse
   end
 
   # GET /students/new
