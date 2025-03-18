@@ -20,7 +20,6 @@ Rails.application.routes.draw do
   resources :subjects
   resources :courses
   resources :classrooms
-  resources :employees
   resources :people
   resources :person_statuses
   resources :addresses
