@@ -1,23 +1,85 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  username: MyString
-  lastname: MyString
-  firstname: MyString
-  email: MyString
-  phone_number: MyString
-  address: one
-  person_status: one
-  type: 
-  iban: MyString
+teacher_martin:
+  username: "martin_j"
+  lastname: "Martin"
+  firstname: "Jacques"
+  email: "jacques.martin@ecole.fr"
+  phone_number: "0612345678"
+  address: address_1
+  person_status: active
+  type: "Teacher"
+  iban: "FR76 3000 6000 0112 3456 7890 189"
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>
 
-two:
-  username: MyString
-  lastname: MyString
-  firstname: MyString
-  email: MyString
-  phone_number: MyString
-  address: two
-  person_status: two
-  type: 
-  iban: MyString
+teacher_dupont:
+  username: "dupont_m"
+  lastname: "Dupont"
+  firstname: "Marie"
+  email: "marie.dupont@ecole.fr"
+  phone_number: "0623456789"
+  address: address_2
+  person_status: active
+  type: "Teacher"
+  iban: "FR76 3000 6000 0112 3456 7890 190"
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>
+
+teacher_smith:
+  username: "smith_j"
+  lastname: "Smith"
+  firstname: "John"
+  email: "john.smith@ecole.fr"
+  phone_number: "0634567890"
+  address: address_3
+  person_status: active
+  type: "Teacher"
+  iban: "FR76 3000 6000 0112 3456 7890 191"
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>
+
+teacher_durand:
+  username: "durand_p"
+  lastname: "Durand"
+  firstname: "Philippe"
+  email: "philippe.durand@ecole.fr"
+  phone_number: "0645678901"
+  address: address_4
+  person_status: active
+  type: "Teacher"
+  iban: "FR76 3000 6000 0112 3456 7890 192"
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>
+
+teacher_moreau:
+  username: "moreau_c"
+  lastname: "Moreau"
+  firstname: "Claire"
+  email: "claire.moreau@ecole.fr"
+  phone_number: "0656789012"
+  address: address_5
+  person_status: active
+  type: "Teacher"
+  iban: "FR76 3000 6000 0112 3456 7890 193"
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>
+
+teacher_johnson:
+  username: "johnson_r"
+  lastname: "Johnson"
+  firstname: "Robert"
+  email: "robert.johnson@ecole.fr"
+  phone_number: "0667890123"
+  address: address_6
+  person_status: active
+  type: "Teacher"
+  iban: "FR76 3000 6000 0112 3456 7890 194"
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>
+
+teacher_garcia:
+  username: "garcia_l"
+  lastname: "Garcia"
+  firstname: "Luis"
+  email: "luis.garcia@ecole.fr"
+  phone_number: "0678901234"
+  address: address_7
+  person_status: active
+  type: "Teacher"
+  iban: "FR76 3000 6000 0112 3456 7890 195"
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>

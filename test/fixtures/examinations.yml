@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+exam_math_6a_1:
   title: MyString
   expected_date: 2025-02-27 14:10:10
   course: one
 
-two:
-  title: MyString
+exam_fra_6a_1:
+  title: french
   expected_date: 2025-02-27 14:10:10
   course: two
