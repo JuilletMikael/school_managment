@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_27_132041) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_13_000003) do
   create_table "addresses", force: :cascade do |t|
     t.integer "zip"
     t.string "town"
@@ -24,10 +24,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_132041) do
     t.string "uid"
     t.string "name"
     t.integer "room_id", null: false
-    t.integer "master_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["master_id"], name: "index_classrooms_on_master_id"
     t.index ["room_id"], name: "index_classrooms_on_room_id"
   end
 
@@ -60,14 +58,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_132041) do
     t.index ["person_status_id"], name: "index_deans_on_person_status_id"
   end
 
-  create_table "employees", force: :cascade do |t|
-    t.string "iban"
-    t.integer "person_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["person_id"], name: "index_employees_on_person_id"
-  end
-
   create_table "examinations", force: :cascade do |t|
     t.string "title"
     t.datetime "expected_date"
@@ -97,6 +87,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_132041) do
     t.integer "address_id", null: false
     t.integer "person_status_id", null: false
     t.string "type"
+    t.string "iban"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "encrypted_password", default: "", null: false
@@ -159,6 +150,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_132041) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "teacher_id"
+    t.index ["teacher_id"], name: "index_subjects_on_teacher_id"
   end
 
   create_table "teachers", force: :cascade do |t|
@@ -177,13 +170,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_132041) do
     t.index ["person_status_id"], name: "index_teachers_on_person_status_id"
   end
 
-  add_foreign_key "classrooms", "masters"
   add_foreign_key "classrooms", "rooms"
   add_foreign_key "courses", "classrooms"
   add_foreign_key "courses", "subjects"
   add_foreign_key "deans", "addresses"
   add_foreign_key "deans", "person_statuses"
-  add_foreign_key "employees", "people"
   add_foreign_key "examinations", "courses"
   add_foreign_key "grades", "examinations"
   add_foreign_key "grades", "students"
@@ -191,6 +182,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_132041) do
   add_foreign_key "people", "person_statuses"
   add_foreign_key "students", "addresses"
   add_foreign_key "students", "person_statuses"
+  add_foreign_key "subjects", "teachers"
   add_foreign_key "teachers", "addresses"
   add_foreign_key "teachers", "person_statuses"
 end

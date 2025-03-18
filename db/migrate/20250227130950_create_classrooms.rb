@@ -4,7 +4,6 @@ class CreateClassrooms < ActiveRecord::Migration[8.0]
       t.string :uid
       t.string :name
       t.references :room, null: false, foreign_key: true
-      t.references :master, null: false, foreign_key: true
 
       t.timestamps
     end

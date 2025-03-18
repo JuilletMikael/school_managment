@@ -8,6 +8,7 @@ class CreateStudents < ActiveRecord::Migration[8.0]
       t.string :phone_number
       t.references :address, null: false, foreign_key: true
       t.references :person_status, null: false, foreign_key: true
+      t.references :classroom, null: false, foreign_key: true
       t.string :type
 
       t.timestamps
