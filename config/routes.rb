@@ -16,46 +16,21 @@ Rails.application.routes.draw do
   # Dashboard routes
   get 'dashboard', to: 'dashboard#index'
 
-  # Dean specific routes
-  namespace :dean do
-    resources :courses do
-      member do
-        get 'assign_teacher'
-        post 'update_teacher'
-      end
-    end
-    resources :classrooms do
-      member do
-        get 'assign_students'
-        patch 'assign_students'
-      end
-    end
+  # Resources with role-based access
+  resources :courses do
     resources :examinations
-    resources :grades do
-      collection do
-        get 'generate_score_sheet'
-      end
-    end
+    resources :grades
   end
 
-  # Teacher specific routes
-  namespace :teacher do
-    resources :courses, only: [:index, :show] do
-      resources :examinations
-      resources :grades
-    end
+  resources :classrooms do
+    resources :students
   end
 
-  # Student specific routes
-  namespace :student do
-    resources :courses, only: [:index, :show]
-    resources :examinations, only: [:index, :show]
-    resources :grades, only: [:index, :show] do
-      member do
-        get 'score_sheet'
-      end
-    end
+  resources :teachers
+  resources :students do
+    resources :grades, only: [:index]
   end
+  resources :deans
 
   # General resources
   resources :subjects
