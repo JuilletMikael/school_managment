@@ -1,7 +1,7 @@
 class Course < ApplicationRecord
   belongs_to :classroom
   belongs_to :subject
-  belongs_to :teacher, class_name: 'Teacher', foreign_key: 'teacher_id'
+  belongs_to :teacher, class_name: 'Teacher', foreign_key: 'teacher_id', optional: true
   
   has_many :examinations, foreign_key: "course_id", dependent: :destroy
   has_many :grades, dependent: :destroy
@@ -10,6 +10,11 @@ class Course < ApplicationRecord
   validates :name, presence: true
 
   def name
-    subject.try(:name) || read_attribute(:name)
+    read_attribute(:name) || subject.try(:name)
+  end
+  
+  # Use this to safely get the name when subject might be nil
+  def display_name
+    name || "Unnamed Course"
   end
 end

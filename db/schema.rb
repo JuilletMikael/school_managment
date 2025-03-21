@@ -70,6 +70,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_000003) do
     t.string "phone_number"
     t.integer "address_id", null: false
     t.integer "person_status_id", null: false
+    t.integer "classroom_id"
     t.string "type"
     t.string "iban"
     t.datetime "created_at", null: false
@@ -79,6 +80,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_000003) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.index ["address_id"], name: "index_people_on_address_id"
+    t.index ["classroom_id"], name: "index_people_on_classroom_id"
     t.index ["email"], name: "index_people_on_email", unique: true
     t.index ["person_status_id"], name: "index_people_on_person_status_id"
     t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true
@@ -130,6 +132,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_000003) do
   add_foreign_key "grades", "examinations"
   add_foreign_key "grades", "people"
   add_foreign_key "people", "addresses"
+  add_foreign_key "people", "classrooms"
   add_foreign_key "people", "person_statuses"
   add_foreign_key "subjects", "People", column: "People_id"
 end
