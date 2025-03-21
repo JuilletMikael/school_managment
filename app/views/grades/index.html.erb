@@ -1,16 +1,72 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mx-auto px-4 py-8">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block"><%= notice %></p>
+  <% end %>
 
-<% content_for :title, "Grades" %>
+  <div class="flex justify-between items-center mb-6">
+    <% if @student.present? %>
+      <h1 class="text-2xl font-bold">Grades for <%= @student.full_name %></h1>
+      <% if current_user_role == :dean || current_user_role == :teacher %>
+        <%= link_to "New Grade", new_grade_path(student_id: @student.id), class: "rounded-lg py-2 px-3 bg-blue-600 text-white hover:bg-blue-700" %>
+      <% end %>
+    <% else %>
+      <h1 class="text-2xl font-bold">All Grades</h1>
+      <% if current_user_role == :dean || current_user_role == :teacher %>
+        <%= link_to "New Grade", new_grade_path, class: "rounded-lg py-2 px-3 bg-blue-600 text-white hover:bg-blue-700" %>
+      <% end %>
+    <% end %>
+  </div>
 
-<h1>Grades</h1>
+  <div class="bg-white rounded-lg shadow overflow-hidden">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <% unless @student.present? %>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student</th>
+          <% end %>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Score</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <% @grades.each do |grade| %>
+          <tr class="hover:bg-gray-50">
+            <% unless @student.present? %>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <%= link_to grade.student.full_name, student_path(grade.student), class: "text-blue-600 hover:text-blue-900" %>
+              </td>
+            <% end %>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <%= link_to grade.course.name, course_path(grade.course), class: "text-blue-600 hover:text-blue-900" %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <span class="<%= grade.score.to_f >= 4.0 ? 'text-green-600' : 'text-red-600' %>">
+                <%= grade.score %>
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <%= grade.created_at.strftime("%B %d, %Y") %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <div class="flex space-x-2">
+                <%= link_to "View", grade_path(grade), class: "text-blue-600 hover:text-blue-900" %>
+                <% if current_user_role == :dean || (current_user_role == :teacher && grade.course.teacher == current_person) %>
+                  <%= link_to "Edit", edit_grade_path(grade), class: "text-yellow-600 hover:text-yellow-900" %>
+                  <%= button_to "Delete", grade, method: :delete, class: "text-red-600 hover:text-red-900", form: { data: { turbo_confirm: "Are you sure?" } } %>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
-<div id="grades">
-  <% @grades.each do |grade| %>
-    <%= render grade %>
-    <p>
-      <%= link_to "Show this grade", grade %>
-    </p>
+  <% if @student.present? %>
+    <div class="mt-6">
+      <%= link_to "Back to Student", student_path(@student), class: "inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" %>
+    </div>
   <% end %>
 </div>
-
-<%= link_to "New grade", new_grade_path %>
