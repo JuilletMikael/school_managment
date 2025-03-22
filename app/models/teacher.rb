@@ -6,8 +6,9 @@ class Teacher < Person
   has_many :subjects, through: :courses
   has_many :classrooms, -> { distinct }, through: :courses
   has_many :students, -> { distinct }, through: :classrooms
+  has_many :master_classrooms, class_name: 'Classroom', foreign_key: 'master_id'
 
   def full_name
-    "#{first_name} #{last_name}"
+    "#{firstname} #{lastname}"
   end
 end
