@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   resources :teachers
   resources :students do
-    resources :grades, only: [:index]
+    resources :grades
   end
   resources :deans
 

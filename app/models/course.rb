@@ -1,7 +1,8 @@
 class Course < ApplicationRecord
   belongs_to :classroom
   belongs_to :subject
-  belongs_to :teacher, class_name: 'Teacher', foreign_key: 'teacher_id', optional: true
+  # Removing invalid teacher association since there's no teacher_id column
+  # belongs_to :teacher, class_name: 'Teacher', foreign_key: 'teacher_id', optional: true
   
   has_many :examinations, foreign_key: "course_id", dependent: :destroy
   has_many :grades, dependent: :destroy

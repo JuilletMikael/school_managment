@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-full">
+<html class="h-full bg-gray-50">
   <head>
     <title><%= content_for(:title) || "School Management" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -36,17 +36,14 @@
               </div>
               <div class="hidden md:block">
                 <div class="ml-10 flex items-baseline space-x-4">
-                  <%= link_to "Dashboard", "#", class: "hover:bg-green-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
-                  <%= link_to "Etudiant", "#", class: "hover:bg-green-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
-                  <%= link_to "Professeur", "#", class: "hover:bg-green-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
-                  <%= link_to "Cours", "#", class: "hover:bg-green-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
+                  <%= link_to "Dashboard", "/dashboard", class: "hover:bg-green-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
                 </div>
               </div>
             </div>
             <div class="hidden md:block">
               <div class="ml-4 flex items-center md:ml-6 space-x-4">
                 <% if person_signed_in? %>
-                  <span class="text-green-100 text-sm"><%= current_person.email %></span>
+                  <span class="text-sm"><%= current_person.email %></span>
                   <%= button_to "Déconnexion", destroy_person_session_path, method: :delete, class: "rounded-md bg-green-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600" %>
                 <% else %>
                   <%= link_to "Connexion", new_person_session_path, class: "btn text-white rounded-md bg-green-700 px-3 py-2 text-sm font-semibold shadow-sm hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600" %>

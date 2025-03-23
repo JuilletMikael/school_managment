@@ -65,8 +65,8 @@
         <div class="space-y-4">
           <% @grades.each do |grade| %>
             <div class="border-b pb-2">
-              <h3 class="font-medium"><%= grade.course.name %></h3>
-              <p class="text-sm text-gray-600">Grade: <%= grade.score %></p>
+              <h3 class="font-medium"><%= grade.course&.name || "No course assigned" %></h3>
+              <p class="text-sm text-gray-600">Grade: <%= grade.value %></p>
               <p class="text-sm text-gray-600">Date: <%= grade.created_at.strftime("%B %d, %Y") %></p>
             </div>
           <% end %>
@@ -79,7 +79,7 @@
           <% @courses.each do |course| %>
             <div class="border-b pb-2">
               <h3 class="font-medium"><%= course.name %></h3>
-              <p class="text-sm text-gray-600">Teacher: <%= course.teacher.full_name %></p>
+              <p class="text-sm text-gray-600">Class: <%= course.classroom&.name || "No classroom assigned" %></p>
               <%= link_to "View Details", course_path(course), class: "text-sm text-blue-600 hover:text-blue-800" %>
             </div>
           <% end %>

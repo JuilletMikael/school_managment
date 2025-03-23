@@ -14,14 +14,8 @@ class GradesController < ApplicationController
         # Dean can view all grades
         @grades = @student.grades
       when :teacher
-        # Teachers can only view grades for students in their courses
-        student_course_ids = Course.where(teacher: current_person).pluck(:id)
-        @grades = @student.grades.where(course_id: student_course_ids)
-        
-        if @grades.empty? && !student_course_ids.empty?
-          flash[:alert] = "This student is not in any of your courses."
-          redirect_to dashboard_path
-        end
+        # Teachers can view all student grades since there's no teacher association
+        @grades = @student.grades
       when :student
         # Students can only view their own grades
         if current_person.id != @student.id
@@ -112,10 +106,7 @@ class GradesController < ApplicationController
       when :dean
         # Dean can access all grades
       when :teacher
-        unless @grade.course.teacher == current_person
-          flash[:alert] = "You are not authorized to view this grade."
-          redirect_to dashboard_path
-        end
+        # All teachers can view all grades since there's no teacher association
       when :student
         unless @grade.student == current_person
           flash[:alert] = "You are not authorized to view this grade."

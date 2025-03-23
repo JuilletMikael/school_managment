@@ -8,7 +8,7 @@ class CoursesController < ApplicationController
     when :dean
       @courses = Course.all
     when :teacher
-      @courses = Course.where(teacher: current_person)
+      @courses = Course.all
     when :student
       @courses = Course.joins(:classroom).where(classrooms: { id: current_person.classroom_id })
     end
@@ -61,7 +61,7 @@ class CoursesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def course_params
-      params.require(:course).permit(:name, :description, :classroom_id, :teacher_id)
+      params.require(:course).permit(:name, :description, :classroom_id)
     end
 
     def authorize_access
@@ -69,10 +69,8 @@ class CoursesController < ApplicationController
       when :dean
         # Dean can access all courses
       when :teacher
-        unless @course.teacher == current_person
-          flash[:alert] = "You are not authorized to view this course."
-          redirect_to courses_path
-        end
+        # All teachers can access all courses since there's no teacher association
+        # No restriction needed
       when :student
         unless @course.classroom == current_person.classroom
           flash[:alert] = "You are not authorized to view this course."

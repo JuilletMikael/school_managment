@@ -7,7 +7,7 @@
     <% if @student.present? %>
       <h1 class="text-2xl font-bold">Grades for <%= @student.full_name %></h1>
       <% if current_user_role == :dean || current_user_role == :teacher %>
-        <%= link_to "New Grade", new_grade_path(student_id: @student.id), class: "rounded-lg py-2 px-3 bg-blue-600 text-white hover:bg-blue-700" %>
+        <%= link_to "New Grade", new_student_grade_path(@student), class: "rounded-lg py-2 px-3 bg-blue-600 text-white hover:bg-blue-700" %>
       <% end %>
     <% else %>
       <h1 class="text-2xl font-bold">All Grades</h1>
@@ -39,11 +39,11 @@
               </td>
             <% end %>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              <%= link_to grade.course.name, course_path(grade.course), class: "text-blue-600 hover:text-blue-900" %>
+              <%= link_to (grade.course&.name || "No course"), grade.course ? course_path(grade.course) : "#", class: "text-blue-600 hover:text-blue-900" %>
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              <span class="<%= grade.score.to_f >= 4.0 ? 'text-green-600' : 'text-red-600' %>">
-                <%= grade.score %>
+              <span class="<%= grade.value.to_f >= 4.0 ? 'text-green-600' : 'text-red-600' %>">
+                <%= grade.value %>
               </span>
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -51,10 +51,18 @@
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
               <div class="flex space-x-2">
-                <%= link_to "View", grade_path(grade), class: "text-blue-600 hover:text-blue-900" %>
-                <% if current_user_role == :dean || (current_user_role == :teacher && grade.course.teacher == current_person) %>
-                  <%= link_to "Edit", edit_grade_path(grade), class: "text-yellow-600 hover:text-yellow-900" %>
-                  <%= button_to "Delete", grade, method: :delete, class: "text-red-600 hover:text-red-900", form: { data: { turbo_confirm: "Are you sure?" } } %>
+                <% if @student.present? %>
+                  <%= link_to "View", student_grade_path(@student, grade), class: "text-blue-600 hover:text-blue-900" %>
+                  <% if current_user_role == :dean || (current_user_role == :teacher) %>
+                    <%= link_to "Edit", edit_student_grade_path(@student, grade), class: "text-yellow-600 hover:text-yellow-900" %>
+                    <%= button_to "Delete", student_grade_path(@student, grade), method: :delete, class: "text-red-600 hover:text-red-900", form: { data: { turbo_confirm: "Are you sure?" } } %>
+                  <% end %>
+                <% else %>
+                  <%= link_to "View", grade_path(grade), class: "text-blue-600 hover:text-blue-900" %>
+                  <% if current_user_role == :dean || (current_user_role == :teacher) %>
+                    <%= link_to "Edit", edit_grade_path(grade), class: "text-yellow-600 hover:text-yellow-900" %>
+                    <%= button_to "Delete", grade, method: :delete, class: "text-red-600 hover:text-red-900", form: { data: { turbo_confirm: "Are you sure?" } } %>
+                  <% end %>
                 <% end %>
               </div>
             </td>

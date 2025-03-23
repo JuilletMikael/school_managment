@@ -13,10 +13,10 @@ class Grade < ApplicationRecord
   
   # For backward compatibility
   def value
-    score
+    self[:value]
   end
   
   def value=(val)
-    self.score = val
+    self[:value] = val
   end
 end
