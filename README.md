@@ -76,11 +76,6 @@ To watch for Tailwind CSS changes (if applicable):
 rails tailwindcss:watch
 ````
 
-To run background jobs using Sidekiq:
-````shell
-bundle exec sidekiq
-````
-
 ---
 
 ## Production Deployment
