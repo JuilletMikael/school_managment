@@ -29,15 +29,34 @@ Install dependencies:
 bundle install
 ````
 
-Copy and modify the environment variables:
-````shell
-cp .env.example .env
-````
 
 Set up the database:
 ````shell
 rails db:create db:migrate
 ````
+
+### Database Seeding
+
+To populate the database with initial data (users, courses, etc.):
+````shell
+rails db:seed
+````
+
+### User Authentication
+
+After seeding the database, you can log in with the following demo accounts:
+
+#### Dean Account
+- **Email**: pierre.lambert@ecole.fr
+- **Password**: password
+
+#### Teacher Account
+- **Email**: jacques.martin@ecole.fr
+- **Password**: password
+
+#### Student Account
+- **Email**: thomas.dubois@ecole.fr
+- **Password**: password
 
 ---
 
@@ -72,15 +91,19 @@ bundle exec sidekiq
 ````shell
 RAILS_ENV=production rails db:create db:migrate
 ````
-2. Precompile assets:
+2. Seed the production database (if needed):
+````shell
+RAILS_ENV=production rails db:seed
+````
+3. Precompile assets:
 ````shell
 RAILS_ENV=production rails assets:precompile
 ````
-3. Start the server (e.g., using Puma):
+4. Start the server (e.g., using Puma):
 ````shell
 RAILS_ENV=production bundle exec puma -C config/puma.rb
 ````
-4. Run background workers (if applicable):
+5. Run background workers (if applicable):
 ````shell
 RAILS_ENV=production bundle exec sidekiq
 ````
