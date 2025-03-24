@@ -7,8 +7,8 @@ class Person < ApplicationRecord
   # Associations
   belongs_to :address, optional: true
   belongs_to :person_status, optional: true
+  belongs_to :classroom, optional: true
 
-  has_many :classrooms, foreign_key: 'master_id' # Un prof peut être maître d'une classe
 
   after_create :assign_default_role
 

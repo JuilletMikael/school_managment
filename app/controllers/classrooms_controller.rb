@@ -1,22 +1,30 @@
 class ClassroomsController < ApplicationController
   before_action :set_classroom, only: %i[ show edit update destroy ]
+  before_action :authorize_admin, except: [:index, :show]
 
   # GET /classrooms or /classrooms.json
   def index
-    @classrooms = Classroom.all
+    @classrooms = Classroom.all.includes(:room, :master)
   end
 
   # GET /classrooms/1 or /classrooms/1.json
   def show
+    # Find students with this classroom (workaround until migration is run)
+    @students = Student.where(id: @classroom.students.pluck(:id)) rescue []
+    @courses = @classroom.courses.includes(:teacher, :subject)
   end
 
   # GET /classrooms/new
   def new
     @classroom = Classroom.new
+    @teachers = Teacher.all
+    @rooms = Room.all
   end
 
   # GET /classrooms/1/edit
   def edit
+    @teachers = Teacher.all
+    @rooms = Room.all
   end
 
   # POST /classrooms or /classrooms.json
@@ -28,6 +36,8 @@ class ClassroomsController < ApplicationController
         format.html { redirect_to @classroom, notice: "Classroom was successfully created." }
         format.json { render :show, status: :created, location: @classroom }
       else
+        @teachers = Teacher.all
+        @rooms = Room.all
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @classroom.errors, status: :unprocessable_entity }
       end
@@ -41,6 +51,8 @@ class ClassroomsController < ApplicationController
         format.html { redirect_to @classroom, notice: "Classroom was successfully updated." }
         format.json { render :show, status: :ok, location: @classroom }
       else
+        @teachers = Teacher.all
+        @rooms = Room.all
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @classroom.errors, status: :unprocessable_entity }
       end
@@ -60,11 +72,11 @@ class ClassroomsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_classroom
-      @classroom = Classroom.find(params.expect(:id))
+      @classroom = Classroom.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def classroom_params
-      params.expect(classroom: [ :uid, :name, :room_id, :master_id ])
+      params.require(:classroom).permit(:name, :room_id, :master_id)
     end
 end

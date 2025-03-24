@@ -1,0 +1,154 @@
+.examinations-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.examinations-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.examinations-header h1 {
+  margin: 0;
+  color: #2c3e50;
+}
+
+.course-info {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.course-info h2 {
+  margin: 0 0 1rem 0;
+  color: #2c3e50;
+}
+
+.course-info p {
+  margin: 0.5rem 0;
+  color: #6c757d;
+}
+
+.subject-examinations {
+  margin-bottom: 3rem;
+}
+
+.subject-examinations h3 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.examinations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.examination-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  transition: transform 0.2s;
+}
+
+.examination-card:hover {
+  transform: translateY(-2px);
+}
+
+.examination-card h4 {
+  margin: 0 0 1rem 0;
+  color: #2c3e50;
+}
+
+.examination-card .date,
+.examination-card .course {
+  margin: 0.5rem 0;
+  color: #6c757d;
+}
+
+.examination-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.btn-info:hover {
+  background-color: #138496;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.no-examinations {
+  text-align: center;
+  color: #6c757d;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .examinations-container {
+    padding: 1rem;
+  }
+
+  .examinations-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .examination-actions {
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+} 

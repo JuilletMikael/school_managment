@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_27_132041) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_22_144500) do
   create_table "addresses", force: :cascade do |t|
     t.integer "zip"
     t.string "town"
@@ -24,9 +24,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_132041) do
     t.string "uid"
     t.string "name"
     t.integer "room_id", null: false
-    t.integer "master_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "master_id"
     t.index ["master_id"], name: "index_classrooms_on_master_id"
     t.index ["room_id"], name: "index_classrooms_on_room_id"
   end
@@ -44,30 +44,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_132041) do
     t.index ["subject_id"], name: "index_courses_on_subject_id"
   end
 
-  create_table "deans", force: :cascade do |t|
-    t.string "username"
-    t.string "lastname"
-    t.string "firstname"
-    t.string "email"
-    t.string "phone_number"
-    t.integer "address_id", null: false
-    t.integer "person_status_id", null: false
-    t.string "type"
-    t.string "iban"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["address_id"], name: "index_deans_on_address_id"
-    t.index ["person_status_id"], name: "index_deans_on_person_status_id"
-  end
-
-  create_table "employees", force: :cascade do |t|
-    t.string "iban"
-    t.integer "person_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["person_id"], name: "index_employees_on_person_id"
-  end
-
   create_table "examinations", force: :cascade do |t|
     t.string "title"
     t.datetime "expected_date"
@@ -81,11 +57,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_132041) do
     t.decimal "value"
     t.datetime "effective_date"
     t.integer "examination_id", null: false
-    t.integer "student_id", null: false
+    t.integer "person_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["examination_id"], name: "index_grades_on_examination_id"
-    t.index ["student_id"], name: "index_grades_on_student_id"
+    t.index ["person_id"], name: "index_grades_on_person_id"
   end
 
   create_table "people", force: :cascade do |t|
@@ -96,7 +72,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_132041) do
     t.string "phone_number"
     t.integer "address_id", null: false
     t.integer "person_status_id", null: false
+    t.integer "classroom_id"
     t.string "type"
+    t.string "iban"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "encrypted_password", default: "", null: false
@@ -104,6 +82,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_132041) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.index ["address_id"], name: "index_people_on_address_id"
+    t.index ["classroom_id"], name: "index_people_on_classroom_id"
     t.index ["email"], name: "index_people_on_email", unique: true
     t.index ["person_status_id"], name: "index_people_on_person_status_id"
     t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true
@@ -140,57 +119,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_132041) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "students", force: :cascade do |t|
-    t.string "username"
-    t.string "lastname"
-    t.string "firstname"
-    t.string "email"
-    t.string "phone_number"
-    t.integer "address_id", null: false
-    t.integer "person_status_id", null: false
-    t.string "type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["address_id"], name: "index_students_on_address_id"
-    t.index ["person_status_id"], name: "index_students_on_person_status_id"
-  end
-
   create_table "subjects", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "People_id"
+    t.index ["People_id"], name: "index_subjects_on_People_id"
   end
 
-  create_table "teachers", force: :cascade do |t|
-    t.string "username"
-    t.string "lastname"
-    t.string "firstname"
-    t.string "email"
-    t.string "phone_number"
-    t.integer "address_id", null: false
-    t.integer "person_status_id", null: false
-    t.string "type"
-    t.string "iban"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["address_id"], name: "index_teachers_on_address_id"
-    t.index ["person_status_id"], name: "index_teachers_on_person_status_id"
-  end
-
-  add_foreign_key "classrooms", "masters"
+  add_foreign_key "classrooms", "people", column: "master_id"
   add_foreign_key "classrooms", "rooms"
   add_foreign_key "courses", "classrooms"
   add_foreign_key "courses", "subjects"
-  add_foreign_key "deans", "addresses"
-  add_foreign_key "deans", "person_statuses"
-  add_foreign_key "employees", "people"
   add_foreign_key "examinations", "courses"
   add_foreign_key "grades", "examinations"
-  add_foreign_key "grades", "students"
+  add_foreign_key "grades", "people"
   add_foreign_key "people", "addresses"
+  add_foreign_key "people", "classrooms"
   add_foreign_key "people", "person_statuses"
-  add_foreign_key "students", "addresses"
-  add_foreign_key "students", "person_statuses"
-  add_foreign_key "teachers", "addresses"
-  add_foreign_key "teachers", "person_statuses"
+  add_foreign_key "subjects", "People", column: "People_id"
 end

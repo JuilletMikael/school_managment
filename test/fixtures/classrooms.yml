@@ -4,10 +4,10 @@ one:
   uid: MyString
   name: MyString
   room: one
-  master: one
+  master: teacher_martin
 
 two:
   uid: MyString
   name: MyString
   room: two
-  master: two
+  master: teacher_dupont

@@ -1,21 +1,95 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  username: MyString
-  lastname: MyString
-  firstname: MyString
-  email: MyString
-  phone_number: MyString
-  address: one
-  person_status: one
-  type: 
+# Teachers
+teacher_martin:
+  username: "martin_j"
+  lastname: "Martin"
+  firstname: "Jacques"
+  email: "jacques.martin@ecole.fr"
+  phone_number: "0612345678"
+  address: address_1
+  person_status: active
+  type: "Teacher"
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>
 
-two:
-  username: MyString
-  lastname: MyString
-  firstname: MyString
-  email: MyString
-  phone_number: MyString
-  address: two
-  person_status: two
-  type: 
+teacher_dupont:
+  username: "dupont_m"
+  lastname: "Dupont"
+  firstname: "Marie"
+  email: "marie.dupont@ecole.fr"
+  phone_number: "0623456789"
+  address: address_2
+  person_status: active
+  type: "Teacher"
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>
+
+teacher_smith:
+  username: "smith_j"
+  lastname: "Smith"
+  firstname: "John"
+  email: "john.smith@ecole.fr"
+  phone_number: "0634567890"
+  address: address_2
+  person_status: active
+  type: "Teacher"
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>
+
+# Students
+student_dubois:
+  username: "dubois_t"
+  lastname: "Dubois"
+  firstname: "Thomas"
+  email: "thomas.dubois@ecole.fr"
+  phone_number: "0712345678"
+  address: address_2
+  person_status: active
+  type: "Student"
+  classroom: two
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>
+
+student_leroy:
+  username: "leroy_c"
+  lastname: "Leroy"
+  firstname: "Camille"
+  email: "camille.leroy@ecole.fr"
+  phone_number: "0723456789"
+  address: address_2
+  person_status: active
+  type: "Student"
+  classroom: two
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>
+
+student_petit:
+  username: "petit_l"
+  lastname: "Petit"
+  firstname: "Lucas"
+  email: "lucas.petit@ecole.fr"
+  phone_number: "0734567890"
+  address: address_2
+  person_status: active
+  type: "Student"
+  classroom: two
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>
+
+# Deans
+dean_lambert:
+  username: "lambert_p"
+  lastname: "Lambert"
+  firstname: "Pierre"
+  email: "pierre.lambert@ecole.fr"
+  phone_number: "0601234567"
+  address: address_2
+  person_status: active
+  type: "Dean"
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>
+
+dean_rousseau:
+  username: "rousseau_s"
+  lastname: "Rousseau"
+  firstname: "Sophie"
+  email: "sophie.rousseau@ecole.fr"
+  phone_number: "0602345678"
+  address: address_2
+  person_status: active
+  type: "Dean"
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>

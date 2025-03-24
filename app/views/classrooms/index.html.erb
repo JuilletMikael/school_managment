@@ -1,16 +1,29 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mx-auto px-4 py-8">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block"><%= notice %></p>
+  <% end %>
 
-<% content_for :title, "Classrooms" %>
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">Classrooms</h1>
+    <% if current_user_role == :dean %>
+      <%= link_to "New Classroom", new_classroom_path, class: "rounded-lg py-2 px-3 bg-blue-600 text-white hover:bg-blue-700" %>
+    <% end %>
+  </div>
 
-<h1>Classrooms</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <% @classrooms.each do |classroom| %>
+      <div class="bg-white p-6 rounded-lg shadow">
+        <%= render classroom %>
+      </div>
+    <% end %>
+  </div>
 
-<div id="classrooms">
-  <% @classrooms.each do |classroom| %>
-    <%= render classroom %>
-    <p>
-      <%= link_to "Show this classroom", classroom %>
-    </p>
+  <% if @classrooms.empty? %>
+    <div class="bg-white p-6 rounded-lg shadow text-center">
+      <p class="text-gray-500">No classrooms found</p>
+      <% if current_user_role == :dean %>
+        <%= link_to "Create your first classroom", new_classroom_path, class: "mt-4 inline-block text-blue-600 hover:text-blue-800" %>
+      <% end %>
+    </div>
   <% end %>
 </div>
-
-<%= link_to "New classroom", new_classroom_path %>

@@ -8,7 +8,9 @@ class CreatePeople < ActiveRecord::Migration[8.0]
       t.string :phone_number
       t.references :address, null: false, foreign_key: true
       t.references :person_status, null: false, foreign_key: true
+      t.references :classroom, foreign_key: true
       t.string :type
+      t.string :iban
 
       t.timestamps
     end
