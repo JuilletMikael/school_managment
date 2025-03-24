@@ -2,6 +2,7 @@ class GradesController < ApplicationController
   before_action :set_grade, only: %i[ show edit update destroy ]
   before_action :set_student, only: [:index], if: -> { params[:student_id].present? }
   before_action :authorize_teacher, except: [:index, :show]
+  before_action :authorize_for_edit_update_destroy, only: [:edit, :update, :destroy]
 
   # GET /grades or /grades.json
   def index
@@ -112,6 +113,14 @@ class GradesController < ApplicationController
           flash[:alert] = "You are not authorized to view this grade."
           redirect_to dashboard_path
         end
+      end
+    end
+    
+    # Only deans can edit, update or delete grades
+    def authorize_for_edit_update_destroy
+      unless current_user_role == :dean
+        flash[:alert] = "Only deans can modify or delete grades."
+        redirect_to student_grades_path(@grade.student)
       end
     end
 end

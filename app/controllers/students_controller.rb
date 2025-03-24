@@ -1,5 +1,6 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: %i[ show edit update destroy grades ]
+  before_action :authorize_dean_only, only: %i[ new edit update destroy create ]
 
   # GET /students or /students.json
   def index
@@ -74,11 +75,19 @@ class StudentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_student
-      @student = Student.find(params.expect(:id))
+      @student = Student.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def student_params
-      params.expect(student: [ :username, :lastname, :firstname, :email, :phone_number, :address_id, :person_status_id, :type ])
+      params.require(:student).permit(:username, :lastname, :firstname, :email, :phone_number, :address_id, :person_status_id, :type)
+    end
+    
+    # Only dean can edit, update, or delete students
+    def authorize_dean_only
+      unless current_user_role == :dean
+        flash[:alert] = "Only deans can modify or delete students."
+        redirect_to students_path
+      end
     end
 end

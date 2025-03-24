@@ -53,13 +53,13 @@
               <div class="flex space-x-2">
                 <% if @student.present? %>
                   <%= link_to "View", student_grade_path(@student, grade), class: "text-blue-600 hover:text-blue-900" %>
-                  <% if current_user_role == :dean || (current_user_role == :teacher) %>
+                  <% if current_user_role == :dean %>
                     <%= link_to "Edit", edit_student_grade_path(@student, grade), class: "text-yellow-600 hover:text-yellow-900" %>
                     <%= button_to "Delete", student_grade_path(@student, grade), method: :delete, class: "text-red-600 hover:text-red-900", form: { data: { turbo_confirm: "Are you sure?" } } %>
                   <% end %>
                 <% else %>
                   <%= link_to "View", grade_path(grade), class: "text-blue-600 hover:text-blue-900" %>
-                  <% if current_user_role == :dean || (current_user_role == :teacher) %>
+                  <% if current_user_role == :dean %>
                     <%= link_to "Edit", edit_grade_path(grade), class: "text-yellow-600 hover:text-yellow-900" %>
                     <%= button_to "Delete", grade, method: :delete, class: "text-red-600 hover:text-red-900", form: { data: { turbo_confirm: "Are you sure?" } } %>
                   <% end %>
