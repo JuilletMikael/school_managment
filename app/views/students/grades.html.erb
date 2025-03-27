@@ -1,0 +1,67 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+    <div class="px-4 py-5 sm:px-6 bg-green-700">
+      <h1 class="text-xl font-semibold text-white">
+        Grades for <%= @student.firstname %> <%= @student.lastname %>
+      </h1>
+    </div>
+    
+    <div class="border-t border-gray-200">
+      <% if @grades.empty? %>
+        <div class="px-4 py-5 sm:p-6">
+          <p class="text-gray-500">No grades found for this student.</p>
+        </div>
+      <% else %>
+        <% @years.each do |year| %>
+          <div class="px-4 py-5 sm:p-6">
+            <h2 class="text-lg font-medium text-gray-900 mb-4">Academic Year <%= year %></h2>
+            
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Examination</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Grade</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                  <% @grades_by_year[year].sort_by { |g| g.effective_date }.each do |grade| %>
+                    <tr>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <% if grade.examination.course.subject %>
+                          <%= grade.examination.course.subject.name %>
+                          <% if grade.examination.course.term %>
+                            (<%= grade.examination.course.term %>)
+                          <% end %>
+                        <% else %>
+                          N/A
+                        <% end %>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <%= grade.examination.title %>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <%= grade.effective_date.strftime("%d %b %Y") %>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <span class="<%= grade.value >= 4.0 ? 'text-green-600' : 'text-red-600' %>">
+                          <%= grade.value %>
+                        </span>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="mt-6 flex">
+    <%= link_to "Back to student", student_path(@student), class: "inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" %>
+  </div>
+</div> 

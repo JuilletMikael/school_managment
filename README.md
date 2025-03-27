@@ -1,14 +1,12 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This README documents the necessary steps to get the application up and running in development and production environments.
 
-
-# EXTERNAL-SOURCE-LOAD
+# School Management
 
 ## Description
 
-The aim of this project is to create a **load** in an ELT that will have a rest api, then deposit the data in a datalake and finally send a notification to the transfom that a document has been added.
+The aim of this project is to create a **Ruby on Rails** application with a REST API, a PostgreSQL database, and background jobs for processing notifications.
 
 ---
 
@@ -16,49 +14,111 @@ The aim of this project is to create a **load** in an ELT that will have a rest 
 
 ### Prerequisites
 
-List all dependencies and their version needed by the project as :
+Ensure you have the following dependencies installed:
 
-* IDE used pycharm 2024.3 or later [download](https://www.jetbrains.com/pycharm/download/?section=windows)
-* Python 3.13 or later [official doc](https://www.python.org/downloads/)
-* Git version 2.47.1 or later [official doc](https://git-scm.com/)
+* **IDE**: RubyMine 2024.1 or later [download](https://www.jetbrains.com/ruby/download/)
+* **Ruby**: Version 3.2 or later [official doc](https://www.ruby-lang.org/en/documentation/installation/)
+* **Rails**: Version 7.1 or later [official doc](https://rubyonrails.org/)
+* **PostgreSQL**: Version 14 or later [official doc](https://www.postgresql.org/download/)
+* **Git**: Version 2.47.1 or later [official doc](https://git-scm.com/)
 
 ### Configuration
 
-Install requiremenets
-````shell
-pip install -r requirements.txt
-````
-
-Copy and modify the .env
-````shell
-cp .env.example .env
-````
-
----
-
-## Development environment
-Install dependence
+Install dependencies:
 ````shell
 bundle install
 ````
 
-Start server. 
+
+Set up the database:
+````shell
+rails db:create db:migrate
+````
+
+### Database Seeding
+
+To populate the database with initial data (users, courses, etc.):
+````shell
+rails db:seed
+````
+
+### User Authentication
+
+After seeding the database, you can log in with the following demo accounts:
+
+#### Dean Account
+- **Email**: pierre.lambert@ecole.fr
+- **Password**: password
+
+#### Teacher Account
+- **Email**: jacques.martin@ecole.fr
+- **Password**: password
+
+#### Student Account
+- **Email**: thomas.dubois@ecole.fr
+- **Password**: password
+
+---
+
+## Development Environment
+
+### Running the application
+
+Start the Rails server:
 ````shell
 rails server
 ````
 
-Server started on [http://127.0.0.1:3000](http://127.0.0.1:3000)
+The server will be available at [http://127.0.0.1:3000](http://127.0.0.1:3000)
 
+To watch for Tailwind CSS changes (if applicable):
+````shell
+rails tailwindcss:watch
+````
 
 ---
 
-## Directory structure
+## Production Deployment
+
+### Setting up the production environment
+
+1. Ensure the database is set up:
+````shell
+RAILS_ENV=production rails db:create db:migrate
+````
+2. Seed the production database (if needed):
+````shell
+RAILS_ENV=production rails db:seed
+````
+3. Precompile assets:
+````shell
+RAILS_ENV=production rails assets:precompile
+````
+4. Start the server (e.g., using Puma):
+````shell
+RAILS_ENV=production bundle exec puma -C config/puma.rb
+````
+5. Run background workers (if applicable):
+````shell
+RAILS_ENV=production bundle exec sidekiq
+````
+
+### Docker Deployment (Optional)
+If using Docker, build and run the container:
+````shell
+docker build -t project-name .
+docker run -p 3000:3000 project-name
+````
+
+---
+
+## Directory Structure
 
 ````shell
-├── Dockerfile                  # Docker container
-├── Gemfile                     # Dependances
+├── Dockerfile                  # Docker configuration
+├── Gemfile                     # Ruby dependencies
 ├── Gemfile.lock
-├── README.md                       
+├── README.md                   # Documentation
 ├── Rakefile
 ├── app                         # Application files
 │   ├── assets
@@ -70,54 +130,54 @@ Server started on [http://127.0.0.1:3000](http://127.0.0.1:3000)
 │   ├── models
 │   └── views
 ├── bin
-├── config
-├── config.ru
-├── db
+├── config                      # Configuration files
+├── db                          # Database migrations
 ├── docs
 ├── lib
 ├── public
 ├── script
 ├── storage
-├── test
+├── test                        # Test suite
 └── vendor
 ````
 
 ---
 
-## Collaborate
+## Collaboration
 
 * Workflow
-    * [Gitflow](https://www.atlassian.com/fr/git/tutorials/comparing-workflows/gitflow-workflow#:~:text=Gitflow%20est%20l'un%20des,les%20hotfix%20vers%20la%20production.)
-    * [How to commit](https://www.conventionalcommits.org/en/v1.0.0/)
-    * [How to use your workflow](https://nvie.com/posts/a-successful-git-branching-model/)
+  * [Gitflow](https://www.atlassian.com/fr/git/tutorials/comparing-workflows/gitflow-workflow)
+  * [How to commit](https://www.conventionalcommits.org/en/v1.0.0/)
+  * [Git branching model](https://nvie.com/posts/a-successful-git-branching-model/)
 
-    * Propose a new feature in [Github issues](https://github.com/CPNV-ES-BI1-SBB/EXTERNAL-SOURCE-LOAD-DATALAKE/issues)
-    * Pull requests are open to merge in the develop branch.
-    * Release on the main branch we use GitFlow and not with GitHub release.
-    * Issues are added to the [github issues page](https://github.com/CPNV-ES-BI1-SBB/EXTERNAL-SOURCE-LOAD-DATALAKE/issues)
+* Propose new features in [GitHub Issues](https://github.com/YourOrganization/YourProject/issues)
+* Pull requests should be merged into the **develop** branch.
+* Releases are done using GitFlow.
+* Issues should be reported on the [GitHub Issues page](https://github.com/YourOrganization/YourProject/issues)
 
-### Commits
+### Commit Conventions
+
 * [How to commit](https://www.conventionalcommits.org/en/v1.0.0/)
 ```bash
 <type>(<scope>): <subject>
 ```
 
-- **build**: Changes that affect the build system or external dependencies (e.g., npm, make, etc.).
-- **ci**: Changes related to integration or configuration files and scripts (e.g., Travis, Ansible, BrowserStack, etc.).
+- **build**: Changes that affect dependencies or the build system.
+- **ci**: CI/CD configuration or workflow changes.
 - **feat**: Adding a new feature.
 - **fix**: Bug fixes.
 - **perf**: Performance improvements.
-- **refactor**: Modifications that neither add a new feature nor improve performance.
-- **style**: Changes that do not affect functionality or semantics (e.g., indentation, formatting, adding spaces, renaming a variable, etc.).
-- **docs**: Writing or updating documentation.
+- **refactor**: Code restructuring without changing behavior.
+- **style**: Code style changes (formatting, linting, etc.).
+- **docs**: Documentation updates.
 - **test**: Adding or modifying tests.
 
-examples :
+Examples:
 ```bash
-feat(MyClass): add a button in the ...
+feat(users): add user authentication system
 ````
 ```bash
-feat(example.js): change name into username
+fix(posts_controller): fix post sorting issue
 ````
 
 ---
@@ -129,4 +189,5 @@ The project is released under a [MIT license](https://mit-license.org/)
 
 ## Contact
 
-* If needed you can create an issue on GitHub we will try to respond as quickly as possible.
+* If needed, you can create an issue on GitHub, and we will respond as soon as possible.
+

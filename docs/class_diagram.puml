@@ -1,0 +1,101 @@
+@startuml
+
+class Address {
+  +integer id
+  +integer zip
+  +string town
+  +string street
+  +string number
+  +Person[] person
+}
+
+class Person {
+  +string username
+  +string lastname
+  +string firstname
+  +string email
+  +string phone_number
+  +Address address
+  +PersonStatus person_status
+}
+
+class Teacher {
+  +Classroom[] classrooms
+}
+
+class Student {
+  +Grade[] grades
+}
+
+class Dean {
+}
+
+class employee {
++string iban
+}
+
+class PersonStatus {
+  +string status
+  +Person[] person
+}
+
+class Classroom {
+  +string uid
+  +string name
+  +Room room
+  +Teacher master
+  +Student[] students
+  +Course[] courses
+}
+
+class Course {
+  +string term
+  +datetime start_at
+  +datetime end_at
+  +integer week_day
+  +Classroom classroom
+  +Subject subject
+  +Examination[] examinations
+}
+
+class Subject {
+  +string name
+  +Course[] courses
+}
+
+class Examination {
+  +string title
+  +datetime expected_date
+  +Course course
+  +Grade[] grades
+}
+
+class Grade {
+  +decimal value
+  +datetime effective_date
+  +Examination examination
+  +Student student
+}
+
+class Room {
+  +string name
+  +Classroom[] classrooms
+}
+
+
+Address "1" o-- "0..*" Person
+Person "0..*" -- "1" PersonStatus
+Classroom "0..*" -- "1" Room
+Classroom "1" -- "0..*" Person
+Course "1" -- "1" Classroom
+Course "0..*" -- "1" Subject
+Examination "0..*" -- "1" Course
+Grade "0..*" -- "1" Examination
+Grade "0..*" -- "1" Student
+
+Person <|-- employee
+Person <|-- Student
+employee <|-- Teacher
+employee <|-- Dean
+
+@enduml

@@ -1,0 +1,86 @@
+.score-sheet {
+  padding: 2cm;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2cm;
+}
+
+header h1 {
+  font-size: 24pt;
+  margin-bottom: 1cm;
+}
+
+.student-info {
+  margin-bottom: 2cm;
+}
+
+.student-info p {
+  margin: 0.5cm 0;
+}
+
+.subject-section {
+  margin-bottom: 2cm;
+}
+
+.subject-section h2 {
+  font-size: 18pt;
+  margin-bottom: 1cm;
+  border-bottom: 2pt solid #000;
+  padding-bottom: 0.5cm;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1cm;
+}
+
+th, td {
+  border: 1pt solid #000;
+  padding: 0.5cm;
+  text-align: left;
+}
+
+th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.signatures {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3cm;
+}
+
+.signature-block {
+  width: 45%;
+}
+
+.signature-line {
+  border-bottom: 1pt solid #000;
+  margin-top: 2cm;
+}
+
+.generated-date {
+  text-align: center;
+  margin-top: 2cm;
+  font-size: 10pt;
+  color: #666;
+}
+
+/* Page breaks */
+.subject-section {
+  page-break-inside: avoid;
+}
+
+table {
+  page-break-inside: auto;
+}
+
+tr {
+  page-break-inside: avoid;
+  page-break-after: auto;
+} 

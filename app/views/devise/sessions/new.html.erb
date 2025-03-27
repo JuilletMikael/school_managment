@@ -1,0 +1,34 @@
+<div class="bg-white">
+  <div class="relative isolate px-6 pt-14 lg:px-8">
+    <div class="mx-auto max-w-2xl py-8 sm:py-12 lg:py-16">
+      <div class="items-center">
+        <h2 class="text-xl font-bold font-extrabold mb-6">Se connecter</h2>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <!-- Grille pour les champs -->
+          <div class="grid gap-6 mb-6 md:grid-cols-1">
+
+            <!-- Champ email -->
+            <div>
+              <%= f.label :email, "Adresse e-mail", class: "block mb-2 font-medium" %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: " px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg w-96", placeholder: "exemple@domaine.com" %>
+            </div>
+
+            <!-- Champ mot de passe -->
+            <div class="">
+              <%= f.label :password, "Mot de passe", class: "block mb-2 font-medium" %>
+              <%= f.password_field :password, autocomplete: "current-password", class: "px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg w-96", placeholder: "•••••••••" %>
+            </div>
+
+          </div>
+
+          <!-- Bouton de soumission -->
+          <div class="mb-6">
+            <%= f.submit "Se connecter", class: "rounded-md bg-green-700 px-3 py-2 font-semibold text-white shadow-sm hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600" %>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

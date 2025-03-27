@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+dean_lambert:
+  username: "lambert_p"
+  lastname: "Lambert"
+  firstname: "Pierre"
+  email: "pierre.lambert@ecole.fr"
+  phone_number: "0601234567"
+  address: address_1
+  person_status: active
+  type: "Dean"
+  iban: "FR76 3000 6000 0112 3456 7890 200"
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>
+
+dean_rousseau:
+  username: "rousseau_s"
+  lastname: "Rousseau"
+  firstname: "Sophie"
+  email: "sophie.rousseau@ecole.fr"
+  phone_number: "0602345678"
+  address: address_2
+  person_status: active
+  type: "Dean"
+  iban: "FR76 3000 6000 0112 3456 7890 201"
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>

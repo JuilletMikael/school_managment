@@ -1,0 +1,7 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+grade_math_dubois:
+  value: 4.5
+  effective_date: 2024-09-15 14:30:00
+  examination: exam_math_6a_1
+  student: student_dubois
