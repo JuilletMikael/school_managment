@@ -65,4 +65,4 @@ end
 gem 'devise'
 gem 'rolify'
 
-gem "tailwindcss-rails", "~> 4.2"
+gem "tailwindcss-rails", "~> 4.4"
